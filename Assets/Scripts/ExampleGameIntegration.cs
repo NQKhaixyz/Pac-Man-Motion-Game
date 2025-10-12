@@ -37,9 +37,10 @@ public class ExampleGameIntegration : MonoBehaviour
 
     private void FindGameSystems()
     {
-        pelletManager = FindObjectOfType<PelletManager>();
-        gameManager = FindObjectOfType<GameManager>();
-        mapGenerator = FindObjectOfType<MapGenerator>();
+    // Use newer API to avoid deprecated FindObjectOfType
+    pelletManager = Object.FindAnyObjectByType<PelletManager>();
+    gameManager = Object.FindAnyObjectByType<GameManager>();
+    mapGenerator = Object.FindAnyObjectByType<MapGenerator>();
 
         if (pelletManager == null)
         {

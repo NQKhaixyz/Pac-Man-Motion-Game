@@ -118,8 +118,9 @@ public class Pellet : MonoBehaviour
 
     private void CollectPellet(GameObject player)
     {
-        // Notify the PelletManager about collection
-        PelletManager pelletManager = FindObjectOfType<PelletManager>();
+    // Notify the PelletManager about collection
+    // Use Object.FindAnyObjectByType<T>() instead of deprecated FindObjectOfType<T>()
+    PelletManager pelletManager = Object.FindAnyObjectByType<PelletManager>();
         if (pelletManager != null)
         {
             pelletManager.OnPelletCollected(this);
