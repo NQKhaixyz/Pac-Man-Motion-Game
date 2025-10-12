@@ -51,12 +51,12 @@ public class GameManager : MonoBehaviour
         // Find components if not assigned
         if (mapGenerator == null)
         {
-            mapGenerator = FindObjectOfType<MapGenerator>();
+            mapGenerator = Object.FindAnyObjectByType<MapGenerator>();
         }
 
         if (pelletManager == null)
         {
-            pelletManager = FindObjectOfType<PelletManager>();
+            pelletManager = Object.FindAnyObjectByType<PelletManager>();
         }
 
         // Subscribe to events

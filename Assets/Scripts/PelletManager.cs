@@ -24,8 +24,11 @@ public class PelletManager : MonoBehaviour
 
     private void Start()
     {
-        // Find all existing pellets in the scene
-        Pellet[] existingPellets = FindObjectsOfType<Pellet>();
+    // Find all existing pellets in the scene (use FindObjectsByType for non-sorted faster option)
+    // Find all existing pellets in the scene (include inactive objects).
+    // Using Resources.FindObjectsOfTypeAll<T>() is compatible across Unity versions
+    // and returns inactive instances as well.
+    Pellet[] existingPellets = Resources.FindObjectsOfTypeAll<Pellet>();
         foreach (Pellet pellet in existingPellets)
         {
             activePellets.Add(pellet.gameObject);
