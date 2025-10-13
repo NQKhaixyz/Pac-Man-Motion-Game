@@ -66,10 +66,6 @@ public class GameManager : MonoBehaviour
             pelletManager.OnAllPelletsCollectedEvent += OnLevelComplete;
         }
 
-        // Subscribe to EventBus events
-        EventBus.ScoreReset += OnScoreReset;
-        EventBus.LevelReset += OnLevelReset;
-
         StartNewGame();
     }
 
@@ -81,10 +77,6 @@ public class GameManager : MonoBehaviour
             pelletManager.OnPelletCollectedEvent -= OnPelletCollected;
             pelletManager.OnAllPelletsCollectedEvent -= OnLevelComplete;
         }
-
-        // Unsubscribe from EventBus events
-        EventBus.ScoreReset -= OnScoreReset;
-        EventBus.LevelReset -= OnLevelReset;
     }
 
     private void InitializeGame()
@@ -186,22 +178,6 @@ public class GameManager : MonoBehaviour
         // scoreText?.SetText($"Score: {score}");
         // livesText?.SetText($"Lives: {lives}");
         // levelText?.SetText($"Level: {currentLevel}");
-    }
-
-    // EventBus event handlers
-    private void OnScoreReset()
-    {
-        Debug.Log("GameManager: Resetting score");
-        score = 0;
-        UpdateUI();
-    }
-
-    private void OnLevelReset()
-    {
-        Debug.Log("GameManager: Resetting level");
-        currentLevel = 1;
-        lives = 3;
-        UpdateUI();
     }
 
     // Public getters
