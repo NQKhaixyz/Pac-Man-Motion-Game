@@ -31,17 +31,10 @@ Pac-Man-Motion-Game/
 │   ├── Scenes/
 │   │   └── GameScene.unity          # Scene chính của game
 │   ├── Scripts/
-│   │   ├── Core/                    # Core game systems
-│   │   │   ├── EventBus.cs          # Event bus trung tâm
-│   │   │   ├── GameStateManager.cs  # Quản lý game states
-│   │   │   └── PelletManagerBridge.cs # Bridge PelletManager-EventBus
 │   │   ├── GameManager.cs           # Quản lý trạng thái game
 │   │   ├── MapGenerator.cs          # Tạo bản đồ Pac-Man
 │   │   ├── Pellet.cs                # Logic chấm ăn
 │   │   └── PelletManager.cs         # Quản lý các chấm ăn
-│   ├── Tests/                       # Unit & Integration tests
-│   │   ├── EditMode/                # Tests không cần Unity runtime
-│   │   └── PlayMode/                # Tests cần Unity runtime
 │   └── Prefabs/                     # Các prefab cho game objects
 ├── ProjectSettings/                  # Cài đặt Unity project
 └── README.md
@@ -87,31 +80,6 @@ Pac-Man-Motion-Game/
   - Pause/Resume functionality
   - Life system
   - Level progression
-
-### ✅ Game State Manager & Event Bus (Core Systems)
-- **EventBus**: Hệ thống event bus trung tâm cho giao tiếp giữa các systems
-  - Events: RequestStartGame, LevelCompleted, PlayerDead, RequestReplay, RequestBackToMenu
-  - Events nội bộ: ScoreReset, LevelReset, InputLock, InputUnlock
-  - Safe event invocation với exception handling
-  - Test-friendly với ClearAllEvents()
-  
-- **GameStateManager**: Quản lý trạng thái game với các transitions hợp lệ
-  - States: MainMenu → Playing → Win/Lose → Replay → Playing
-  - Validation cho state transitions
-  - Auto-transition từ Replay sang Playing
-  - Side-effects tự động (lock/unlock input, reset score/level)
-  - Events: StateWillChange, StateChanged
-  
-- **PelletManagerBridge**: Kết nối PelletManager với EventBus
-  - Chuyển đổi PelletManager events sang EventBus events
-  - Decoupling giữa các systems
-
-- **TDD Implementation**: 100% test coverage
-  - EditMode tests cho logic core
-  - PlayMode tests cho integration
-  - 4 test suites với 30+ test cases
-
-Xem thêm chi tiết tại [`Assets/Scripts/Core/README.md`](Assets/Scripts/Core/README.md)
 
 ## 🎮 Cách sử dụng
 
