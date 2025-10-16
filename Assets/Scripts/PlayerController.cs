@@ -60,6 +60,49 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        // Đăng ký nghe sự kiện Replay chung của game (nếu có)
+        // Khi Replay xảy ra, ta muốn reset player về lưới và trạng thái di chuyển.
+        GameEvents.OnReplay += Reset;
+    }
+
+    void OnDisable()
+    {
+        // Huỷ đăng ký để tránh giữ reference khi object bị destroy
+        GameEvents.OnReplay -= Reset;
+    }
+
+    /// <summary>
+    /// (VI) Reset trạng thái Player: snap về lưới, dừng di chuyển và xóa mọi intent/queue.
+    /// - Đây là hàm được gọi khi game phát sự kiện Replay.
+    /// - Gọi public Reset() để tương thích với tên gọi ngắn gọn, nó chỉ gọi ResetToGrid().
+    /// </summary>
+    public void ResetToGrid()
+    {
+        // Snap vị trí hiện tại về lưới
+        Vector3 p = transform.position;
+        p.x = Mathf.Round(p.x / gridSize) * gridSize;
+        p.y = Mathf.Round(p.y / gridSize) * gridSize;
+        p.z = 0f;
+
+        transform.position = p;
+        targetPos = p;
+
+        // Reset trạng thái input/movement
+        queuedDir = Vector2Int.zero;
+        currentDir = Vector2Int.zero;
+        lastInputDir = Vector2Int.zero;
+        prevImMoveDir = Vector2Int.zero;
+        lastInputTime = 0f;
+    }
+
+    // Wrapper ngắn để dễ hook vào event gọi Reset
+    public void Reset()
+    {
+        ResetToGrid();
+    }
+
     void Update()
     {
         // (VI) Update()
